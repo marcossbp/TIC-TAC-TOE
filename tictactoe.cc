@@ -237,7 +237,7 @@ void resetBoard(char board[MAPSIZE][MAPSIZE]){
     }
 }
 
-bool checkLines(vector<int> positions){ // as we have vectors that save the positions, we check the different lines by using if's like trees for the majority of the combinations
+bool checkLines(vector<int> positions){
     bool line = false;
 
     sortVectorPositions(positions);
@@ -348,6 +348,8 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 }
                 else if(tolower(continueOption)=='c'){
                     infiniteGame = true;
+                    turnX = false;
+                    turnO = true;
                 }
             }
         }
@@ -416,6 +418,8 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 }
                 else if(tolower(continueOption)=='c'){
                     infiniteGame = true;
+                    turnO = false;
+                    turnX = true;
                 }
             }
         }
@@ -559,8 +563,28 @@ void firstTurnAI(char board[MAPSIZE][MAPSIZE], vector<int>& positionAI, vector<i
     }
     else if(positionAI.size() == 2){
 
+        savePosition = checkPossibleLines(positionAI);
+        int boardPosition1 = 0;
+        int boardPosition2 = 0;
+        transformPosition(savePosition, boardPosition1, boardPosition2);
+        if(board[boardPosition1][boardPosition2] == ' '){
+            updateBoard(board, savePosition, false, true, correctPosition, infiniteGame, deleteVectorPosition);
+            positionAI.push_back(savePosition);
+        }
+        else if(board[boardPosition1][boardPosition2] != ' '){
+            savePosition = checkPossibleLines(positionPlayer);
+            if(savePosition == 0){
+                do{
+                    savePosition = (rand() % 9) + 1;
+                    transformPosition(savePosition, boardPosition1, boardPosition2);
+                }while(board[boardPosition1][boardPosition2] != ' ');
+            }
+            updateBoard(board, savePosition, false, true, correctPosition, infiniteGame, deleteVectorPosition);
+            positionAI.push_back(savePosition);
+        }
+    }
+    else if(positionAI.size() == 3 && infiniteGame){
         if(infiniteGame){
-            sortVectorPositions(positionAI); 
             deleteVectorPosition = positionAI[0];
             positionAI.erase(positionAI.begin());
         }
@@ -575,18 +599,15 @@ void firstTurnAI(char board[MAPSIZE][MAPSIZE], vector<int>& positionAI, vector<i
         }
         else if(board[boardPosition1][boardPosition2] != ' '){
             savePosition = checkPossibleLines(positionPlayer);
+            if(savePosition == 0){
+                do{
+                    savePosition = (rand() % 9) + 1;
+                    transformPosition(savePosition, boardPosition1, boardPosition2);
+                }while(board[boardPosition1][boardPosition2] != ' ');
+            }
             updateBoard(board, savePosition, false, true, correctPosition, infiniteGame, deleteVectorPosition);
             positionAI.push_back(savePosition);
         }
-        else if(savePosition == 0){
-            do{
-                savePosition = (rand() % 9) + 1;
-                transformPosition(savePosition, boardPosition1, boardPosition2);
-            }while(board[boardPosition1][boardPosition2] != ' ');
-        }
-    }
-    else if(positionAI.size() == 3 && infiniteGame){
-
     }
 }
 
@@ -627,8 +648,29 @@ void secondTurnAI(char board[MAPSIZE][MAPSIZE], vector<int>& positionAI, vector<
     }
     else if(positionAI.size() == 2){
 
+        savePosition = checkPossibleLines(positionAI);
+        int boardPosition1 = 0;
+        int boardPosition2 = 0;
+        transformPosition(savePosition, boardPosition1, boardPosition2);
+        if(savePosition != 0 && board[boardPosition1][boardPosition2] == ' '){
+            updateBoard(board, savePosition, false, true, correctPosition, infiniteGame, deleteVectorPosition);
+            positionAI.push_back(savePosition);
+        }
+        else{
+            for(int i = 1; i < MAPSIZE - 1 && !stopLoop; i++){
+                for(int j = 0; j < MAPSIZE - 1 && !stopLoop; j++){
+                    if(board[i][j] == ' '){
+                        position = correspondantPosition(i, j);
+                        updateBoard(board, position, false, true, correctPosition, infiniteGame, deleteVectorPosition);
+                        positionAI.push_back(position);
+                        stopLoop = true;
+                    }
+                }
+            }
+        }
+    }
+    else if(positionAI.size() == 3 && infiniteGame){
         if(infiniteGame){
-            sortVectorPositions(positionAI);
             deleteVectorPosition = positionAI[0];
             positionAI.erase(positionAI.begin());
         }
@@ -653,9 +695,6 @@ void secondTurnAI(char board[MAPSIZE][MAPSIZE], vector<int>& positionAI, vector<
                 }
             }
         }
-    }
-    else if(positionAI.size() == 3 && infiniteGame){
-
     }
 }
 
@@ -707,7 +746,6 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                 }while(!correctOption);
 
                 if(infiniteGame){
-                    sortVectorPositions(positionPlayer);
                     deleteVectorPosition = positionPlayer[0];
                 }
 
@@ -721,14 +759,12 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
 
                     if(infiniteGame){
                         positionPlayer.erase(positionPlayer.begin());
-                        sortVectorPositions(positionPlayer);
                     }
 
                     turnPlayer = false;
                     turnAI = true;
                 }
                 if(positionPlayer.size() == 3){
-                    sortVectorPositions(positionPlayer);
                     lineMade = checkLines(positionPlayer);
                     if(lineMade){
                         cout << "Player is the Winner!!" << endl;
@@ -759,6 +795,9 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                 }
                 else if(tolower(continueOption)=='c'){
                     infiniteGame = true;
+                    turnPlayer = false;
+                    turnAI = true;
+                    cout << "Hola";
                 }
             }
         }
@@ -775,8 +814,19 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                     turnPlayer = true;
                 }
             }
-            else if(positionAI.size() == 3){
-                sortVectorPositions(positionAI);
+            else if(positionAI.size() == 3 && infiniteGame){
+                if(firstTurn){
+                    firstTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
+                    turnAI = false;
+                    turnPlayer = true;
+                }
+                else{
+                    secondTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
+                    turnAI = false;
+                    turnPlayer = true;
+                }
+            }
+            if(positionAI.size() == 3){
                 lineMade = checkLines(positionAI);
                 if(lineMade){
                     cout << "AI is the Winner!!" << endl;
@@ -805,6 +855,8 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                 }
                 else if(tolower(continueOption)=='c'){
                     infiniteGame = true;
+                    turnAI = false;
+                    turnPlayer = true;
                 }
             }
 
@@ -858,8 +910,3 @@ int main(){
     
     return 0;
 }
-
-// aplicar el infiniteGame a la IA, no se ejecuta porque en playAIGame las dos ramas se ejecutan solo cuando position.size() != 3
-// para que funcione correctamente, la ordenación del vector solo debe darse en checkLines
-
-// buscar forma de parar el juego con una tecla mientras esta infiniteGame activado
