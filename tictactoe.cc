@@ -745,15 +745,22 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
         firstTurn = true; // necessary for the AI method
     }
 
+    printBoard(board);
+
     while(!lineMade && continueGame){
         if(turnPlayer){
-            printBoard(board);
             do{
                 correctPosition = true;
                 do{
                     cout << "Player turn (0 to leave): ";
                     cin >> optionSelected;
-                    if(optionSelected > 0 && optionSelected < 10){
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Invalid input. Please enter a number between 1 and 9, or 0 to leave." << endl;
+                        correctOption = false;
+                    }
+                    else if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
@@ -827,11 +834,13 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             if(positionAI.size() != 3){
                 if(firstTurn){
                     firstTurnAI(board, positionAI, positionPlayer, infiniteGame, deleteVectorPosition);
+                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
                 else{
                     secondTurnAI(board, positionAI, positionPlayer, infiniteGame, deleteVectorPosition);
+                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
@@ -839,11 +848,13 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             else if(positionAI.size() == 3 && infiniteGame){
                 if(firstTurn){
                     firstTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
+                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
                 else{
                     secondTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
+                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
