@@ -287,10 +287,13 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             do{
                 correctPosition = true;
                 do{
-                    cout << "X turn: ";
+                    cout << "X turn (0 to leave): ";
                     cin >> optionSelected;
                     if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
+                    }
+                    else if(optionSelected == 0){
+                        return;
                     }
                     else{
                         correctOption = false;
@@ -357,10 +360,13 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             do{
                 correctPosition = true;
                 do{
-                    cout << "O turn: ";
+                    cout << "O turn (0 to leave): ";
                     cin >> optionSelected;
                     if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
+                    }
+                    else if(optionSelected == 0){
+                        return;
                     }
                     else{
                         correctOption = false;
@@ -732,10 +738,13 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             do{
                 correctPosition = true;
                 do{
-                    cout << "Player turn: ";
+                    cout << "Player turn (0 to leave): ";
                     cin >> optionSelected;
                     if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
+                    }
+                    else if(optionSelected == 0){
+                        return;
                     }
                     else{
                         correctOption = false;
@@ -894,12 +903,13 @@ void rules(){
         << "\t1.1 You play a 1v1 in a 3x3 board.\n"
         << "\t1.2 The first turn is randomly chosen.\n"
         << "\t1.3 You can choose between 9 different board positions (1-9).\n"
-        << "\t1.4 Once both players have 3 pieces on the board, you will have to choose between three options.\n"
-        << "\t\t1.4.1 Leave the game.\n"
-        << "\t\t1.4.2 Restart the game.\n"
-        << "\t\t1.4.3 Continue the game.\n"
-        << "\t\t\t1.4.3.1 This option allows the players continue the game till one of them wins the battle.\n"
-        << "\t\t\t1.4.3.2 When a new positions is selected, the first piece of the one's you have on the board\n" << "\t\t\t\twill change its position to the new one.\n\n"
+        << "\t1.4 Press 0 to leave the game at any moment.\n"
+        << "\t1.5 Once both players have 3 pieces on the board, you will have to choose between three options.\n"
+        << "\t\t1.5.1 Leave the game.\n"
+        << "\t\t1.5.2 Restart the game.\n"
+        << "\t\t1.5.3 Continue the game.\n"
+        << "\t\t\t1.5.3.1 This option allows the players continue the game till one of them wins the battle.\n"
+        << "\t\t\t1.5.3.2 When a new positions is selected, the first piece of the one's you have on the board\n" << "\t\t\t\twill change its position to the new one.\n\n"
 
         << "2. MULTIPLAYER" << endl << endl
         << "\t2.1 To play this gamemode you need two players in the same computer.\n"
