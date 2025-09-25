@@ -222,7 +222,6 @@ void updateBoard(char board[MAPSIZE][MAPSIZE], int position, bool turnX, bool tu
                 board[boardPosition1][boardPosition2] = 'O';
             }
         }
-        printBoard(board);
     }
 }
 
@@ -289,7 +288,13 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 do{
                     cout << "X turn (0 to leave): ";
                     cin >> optionSelected;
-                    if(optionSelected > 0 && optionSelected < 10){
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Invalid input. Please enter a number between 1 and 9, or 0 to leave." << endl;
+                        correctOption = false;
+                    }
+                    else if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
@@ -308,6 +313,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 }
 
                 updateBoard(board, optionSelected, turnX, turnO, correctPosition, infiniteGame, deleteVectorPosition);
+                printBoard(board);
 
                 if(!correctPosition){
                     cout << "This position is already occupied. Please choose another one" << endl;
@@ -362,7 +368,13 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 do{
                     cout << "O turn (0 to leave): ";
                     cin >> optionSelected;
-                    if(optionSelected > 0 && optionSelected < 10){
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Invalid input. Please enter a number between 1 and 9, or 0 to leave." << endl;
+                        correctOption = false;
+                    }
+                    else if(optionSelected > 0 && optionSelected < 10){
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
@@ -381,6 +393,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 }
 
                 updateBoard(board, optionSelected, turnX, turnO, correctPosition, infiniteGame, deleteVectorPosition);
+                printBoard(board);  
 
                 if(!correctPosition){
                     cout << "This position is already occupied. Please choose another one" << endl;
