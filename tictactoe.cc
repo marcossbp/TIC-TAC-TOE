@@ -866,13 +866,51 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
 }
 
 void printMenu(){
-    
-    cout << "1. Play Game (2 Players)" << endl
-         << "2. Play Game (1 Player)" << endl
-         << "3. Exit" << endl;
+
+    cout << endl <<"#################################\n"
+                << "#                               #\n"
+                << "#          TIC-TAC-TOE          #\n"
+                << "#                               #\n"
+                << "#        made by marcosbp       #\n"
+                << "#                               #\n"
+                << "#################################\n";
+
+
+    cout << endl <<"\t(1) MULTIPLAYER" << endl
+         << "\t(2) SINGLEPLAYER" << endl
+         << "\t(3) RULES" << endl
+         << "\t(4) EXIT" << endl << endl;
 
     cout << "Introduce an option: ";
 
+}
+
+void rules(){
+
+    cout << "--------------------------------------------------------------------------------------------------\n";
+
+    cout << endl
+        << "1. GENERAL RULES" << endl << endl
+        << "\t1.1 You play a 1v1 in a 3x3 board.\n"
+        << "\t1.2 The first turn is randomly chosen.\n"
+        << "\t1.3 You can choose between 9 different board positions (1-9).\n"
+        << "\t1.4 Once both players have 3 pieces on the board, you will have to choose between three options.\n"
+        << "\t\t1.4.1 Leave the game.\n"
+        << "\t\t1.4.2 Restart the game.\n"
+        << "\t\t1.4.3 Continue the game.\n"
+        << "\t\t\t1.4.3.1 This option allows the players continue the game till one of them wins the battle.\n"
+        << "\t\t\t1.4.3.2 When a new positions is selected, the first piece of the one's you have on the board\n" << "\t\t\t\twill change its position to the new one.\n\n"
+
+        << "2. MULTIPLAYER" << endl << endl
+        << "\t2.1 To play this gamemode you need two players in the same computer.\n"
+        << "\t2.2 One player is identified as 'X' and the other as 'O'.\n\n"
+
+        << "3. SINGLEPLAYER" << endl << endl
+        << "\t3.1 Only one player is needed.\n"
+        << "\t3.2 You play against an algorithm that simulates a real player who is trying to win.\n"
+        << "\t3.3 You are identified as 'X'.\n\n";
+
+    cout << "--------------------------------------------------------------------------------------------------\n\n";
 }
 
 int main(){
@@ -901,12 +939,14 @@ int main(){
                 break;
             case '2': playIAGame(board, combinations); // play solo game
                 break;
-            case '3': // exit the program
+            case '3': rules(); // rules
+                break;
+            case '4': // exit the game
                 break;
             default:
                 break;
         }
-    } while(option != '3');
+    } while(option != '4');
     
     return 0;
 }
