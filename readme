@@ -1,0 +1,55 @@
+<h1 align="center">TIC-TAC-TOE (C++)</h1>
+
+A simple implementation of the classic **Tic-Tac-Toe** game in C++ that runs in the terminal.
+
+The game has been built using basic c++ knowleadge learnt during my first year of computer engineering.
+
+---
+
+![Language](https://img.shields.io/badge/language-C++-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Contributions](https://img.shields.io/badge/contributions-open-brightgreen)
+
+---
+
+## 📚 Table of Contents
+- [📚 Table of Contents](#-table-of-contents)
+- [✨ Features](#-features)
+- [🖥 Requirements](#-requirements)
+- [⚙️ Installation](#️-installation)
+- [Gameplay Overview](#gameplay-overview)
+
+---
+
+## ✨ Features
+- Classic **3x3 Tic-Tac-Toe** gameplay:
+  - The dimensions of the board are adapted to play with fixed positions (1-9).
+- **Algorithm-simulated opponent** that lets you play solo:
+  - The singleplayer algorithm implementation simulates a real person playing against you.
+- Lightweight and portable (runs on any system with a C++ compiler).  
+
+---
+
+## 🖥 Requirements
+- A working **C++ compiler** such as `g++`.  
+- Any operating system (Linux, Windows, macOS) with a terminal/console.  
+
+---
+
+## ⚙️ Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/marcossbp/tictactoe.git
+   cd tictactoe
+   ```
+2. Compile the code:
+   ```bash
+   g++ tictactoe.cc -o tictactoe
+   ```
+3. Run the game:
+   ```bash
+   ./tictactoe
+   ```
+---
+## Gameplay Overview

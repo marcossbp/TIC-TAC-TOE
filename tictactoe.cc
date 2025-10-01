@@ -278,6 +278,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
     int optionSelected = 0;
     char continueOption;
 
+    cout << endl;
     printBoard(board);
     turnSelector(turnX, turnO);
 
@@ -286,8 +287,10 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             do{
                 correctPosition = true;
                 do{
+                    cout << endl;
                     cout << "X turn (0 to leave): ";
                     cin >> optionSelected;
+                    cout << endl;
                     if (cin.fail()) {
                         cin.clear();
                         cin.ignore(1000, '\n');
@@ -316,7 +319,9 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 printBoard(board);
 
                 if(!correctPosition){
-                    cout << "This position is already occupied. Please choose another one" << endl;
+                    cout << endl;
+                    cout << "This position is already occupied. Please choose another one" << endl << endl;
+                    printBoard(board);
                 }
                 else{
                     positionsX.push_back(optionSelected);
@@ -329,6 +334,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 if(positionsX.size() == 3){
                     lineMade = checkLines(positionsX);
                     if(lineMade){
+                        cout << endl;
                         cout << "X is the Winner!!" << endl;
                         resetBoard(board);
                         positionsX.clear();
@@ -338,6 +344,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             } while(!correctPosition);
 
             if(!lineMade && positionsX.size()==3 && positionsO.size()==3 && !infiniteGame){
+                cout << endl;
                 cout << "The game has ended in a draw" << endl;
                 cout << "Do you want to restart (r), leave (l) or continue (c) the game: ";
                 cin >> continueOption;
@@ -356,6 +363,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                     positionsO.clear();
                 }
                 else if(tolower(continueOption)=='c'){
+                    printBoard(board);
                     infiniteGame = true;
                     turnX = false;
                     turnO = true;
@@ -366,8 +374,10 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             do{
                 correctPosition = true;
                 do{
+                    cout << endl;
                     cout << "O turn (0 to leave): ";
                     cin >> optionSelected;
+                    cout << endl;
                     if (cin.fail()) {
                         cin.clear();
                         cin.ignore(1000, '\n');
@@ -396,7 +406,9 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 printBoard(board);  
 
                 if(!correctPosition){
-                    cout << "This position is already occupied. Please choose another one" << endl;
+                    cout << endl;
+                    cout << "This position is already occupied. Please choose another one" << endl << endl;
+                    printBoard(board);
                 }
                 else{
                     positionsO.push_back(optionSelected);
@@ -409,6 +421,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                 if(positionsO.size() == 3){
                     lineMade = checkLines(positionsO);
                     if(lineMade){
+                        cout << endl;
                         cout << "O is the Winner!!" << endl;
                         resetBoard(board);
                         positionsX.clear();
@@ -418,6 +431,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
             }while(!correctPosition);
 
             if(!lineMade && positionsX.size()==3 && positionsO.size()==3 && !infiniteGame){
+                cout << endl;
                 cout << "The game has ended in a draw" << endl;
                 cout << "Do you want to restart (r), leave (l) or continue (c) the game: ";
                 cin >> continueOption;
@@ -436,6 +450,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                     positionsO.clear();
                 }
                 else if(tolower(continueOption)=='c'){
+                    printBoard(board);
                     infiniteGame = true;
                     turnO = false;
                     turnX = true;
@@ -745,15 +760,17 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
         firstTurn = true; // necessary for the AI method
     }
 
-    printBoard(board);
-
     while(!lineMade && continueGame){
         if(turnPlayer){
+            cout << endl;
+            printBoard(board);
             do{
                 correctPosition = true;
                 do{
+                    cout << endl;
                     cout << "Player turn (0 to leave): ";
                     cin >> optionSelected;
+                    cout << endl;
                     if (cin.fail()) {
                         cin.clear();
                         cin.ignore(1000, '\n');
@@ -779,9 +796,12 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                 }
 
                 updateBoard(board, optionSelected, true, false, correctPosition, infiniteGame, deleteVectorPosition);
+                printBoard(board);
 
                 if(!correctPosition){
-                    cout << "This position is already occupied. Please choose another one" << endl;
+                    cout << endl;
+                    cout << "This position is already occupied. Please choose another one" << endl << endl;
+                    printBoard(board);
                 }
                 else{
                     positionPlayer.push_back(optionSelected);
@@ -826,7 +846,6 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                     infiniteGame = true;
                     turnPlayer = false;
                     turnAI = true;
-                    cout << "Hola";
                 }
             }
         }
@@ -834,13 +853,11 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             if(positionAI.size() != 3){
                 if(firstTurn){
                     firstTurnAI(board, positionAI, positionPlayer, infiniteGame, deleteVectorPosition);
-                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
                 else{
                     secondTurnAI(board, positionAI, positionPlayer, infiniteGame, deleteVectorPosition);
-                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
@@ -848,13 +865,11 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             else if(positionAI.size() == 3 && infiniteGame){
                 if(firstTurn){
                     firstTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
-                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
                 else{
                     secondTurnAI(board, positionAI, positionPlayer, true, deleteVectorPosition);
-                    printBoard(board);
                     turnAI = false;
                     turnPlayer = true;
                 }
@@ -862,13 +877,16 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
             if(positionAI.size() == 3){
                 lineMade = checkLines(positionAI);
                 if(lineMade){
-                    cout << "AI is the Winner!!" << endl;
+                    printBoard(board);
+                    cout << endl << "AI is the Winner!!" << endl;
                     resetBoard(board);
                     positionPlayer.clear();
                     positionAI.clear();
                 }
             }
             if(!lineMade && positionPlayer.size()==3 && positionAI.size()==3 && !infiniteGame){
+                printBoard(board);
+                cout << endl;
                 cout << "The game has ended in a draw" << endl;
                 cout << "Do you want to restart (r), leave (l) or continue (c) the game: ";
                 cin >> continueOption;
