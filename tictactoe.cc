@@ -301,6 +301,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
+                        resetBoard(board);
                         return;
                     }
                     else{
@@ -388,6 +389,7 @@ void playGame2players(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinat
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
+                        resetBoard(board);
                         return;
                     }
                     else{
@@ -781,6 +783,7 @@ void playIAGame(char board[MAPSIZE][MAPSIZE], vector<vector<int>> combinations){
                         correctOption = true;
                     }
                     else if(optionSelected == 0){
+                        resetBoard(board);
                         return;
                     }
                     else{
@@ -1002,3 +1005,5 @@ int main(){
     
     return 0;
 }
+
+// cuando juegas multi  y luego single el board no se resetea
